@@ -1,0 +1,45 @@
+import numpy as np
+import cv2
+import math
+from matplotlib import pyplot as plt
+
+
+
+# Read the input
+# Get the dimensions and divide by 2 to use a center and radius
+# Create a filled white circle on a black background as a mask
+# Apply the mask to the image
+# Save the results
+
+
+# Create mask and draw circle onto mask
+img = cv2.imread(r'C:/Users/edi_8/DigitalImageProcess/HW1/self_pic.jpg')
+
+# read image
+
+hh, ww = img.shape[:2]
+hh2 = hh // 2
+ww2 = ww // 2
+
+# define circles
+radius = hh2
+yc = hh2
+xc = ww2
+
+# draw filled circle in white on bla|ck background as mask
+mask = np.zeros_like(img)
+mask = cv2.circle(mask, (xc,yc), radius, (255,255,255), -1)
+
+# apply mask to image
+result = cv2.bitwise_and(img, mask)
+
+# save results
+cv2.imwrite('self_pic_mask.png', mask)
+cv2.imwrite('self_pic_masked.png', result)
+
+#cv2.imshow('image', img)
+#cv2.imshow('mask', mask)
+im_size = cv2.resize(result, (960,540))
+cv2.imshow('masked image',im_size)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
